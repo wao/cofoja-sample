@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>info.thinkmore.cofomvn</groupId>
+  <artifactId>cofoja</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>cofoja</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.16.4</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>com.google.java.contract</groupId>
+          <artifactId>cofoja</artifactId>
+          <version>1.1-r150</version>
+      </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
+      </dependency>
+  </dependencies>
+  <build>
+      <plugins>
+          <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.8</version>
+              <executions>
+                  <execution>
+                      <id>default-cli</id>
+                      <phase>process-classes</phase>
+                      <configuration>
+
+                          <target>
+                              <property name="compile_classpath" refid="maven.compile.classpath"/>
+                              <property name="output.dir" value="${project.build.outputDirectory}" />
+                              <property name="src.dir" value="${project.build.sourceDirectory}" />
+                              <ant antfile="${basedir}/cofoja_offline.xml" target="cofoja" />
+                          </target>
+                          <!--<target>-->
+                          <!--<echo message="ant running"/>-->
+                          <!--</target>-->
+                      </configuration>
+                      <goals>
+                          <goal>run</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
+</project>

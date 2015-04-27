@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: info.thinkmore.cofomvn.AppTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.015 sec <<< FAILURE!
+testApp(info.thinkmore.cofomvn.AppTest)  Time elapsed: 0.01 sec  <<< ERROR!
+com.google.java.contract.PreconditionError: a<3
+	at info.thinkmore.cofomvn.App.s.<pre>(App.java:11)
+	at info.thinkmore.cofomvn.App.s(App.java)
+	at info.thinkmore.cofomvn.AppTest.testApp(AppTest.java:37)
+

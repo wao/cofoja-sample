@@ -1,0 +1,60 @@
+<project name="CofojAnt" default="run" basedir=".">
+
+  <!-- Project directories. -->
+  <property name="src.dir" location="src"/>
+  <property name="dist.dir" location="dist"/>
+  <property name="lib.dir" location="lib"/>
+  <property name="build.dir" location="build"/>
+  <property name="classes.dir" location="${build.dir}/classes"/>
+
+  <property name="main-class"
+    value="com.google.java.contract.example.CofojAnt"/>
+
+  <property name="cofoja" value="cofoja.jar"/>
+
+   <path id="classpath">
+     <pathelement location="${lib.dir}/${cofoja}"/>
+   </path>
+
+  <target name="build">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}">
+      <classpath refid="classpath"/>
+      <!--<compilerarg value="-proc:only"/>-->
+      <compilerarg value="-Acom.google.java.contract.classpath=${toString:classpath}"/>
+      <compilerarg value="-Acom.google.java.contract.sourcepath=${src.dir}"/>
+      <compilerarg value="-Acom.google.java.contract.classoutput=${classes.dir}"/>
+    </javac>
+
+    <java classname="com.google.java.contract.core.agent.PreMain" fork="true">
+      <classpath refid="classpath"/>
+      <jvmarg value="-Dcom.google.java.contract.classpath=${toString:classpath}"/>
+      <jvmarg value="-Dcom.google.java.contract.sourcepath=${src.dir}"/>
+      <jvmarg value="-Dcom.google.java.contract.classoutput=${classes.dir}"/>
+      <arg value="build/classes/com/google/java/contract/example/CofojAnt.class"/>
+    </java>
+  </target>
+
+  <target name="dist" depends="build">
+    <mkdir dir="${dist.dir}"/>
+    <jar destfile="${dist.dir}/${ant.project.name}.jar">
+        <fileset dir="${classes.dir}">
+            <exclude name="**/*.contracts"/>
+        </fileset>
+      <manifest>
+        <attribute name="Main-Class" value="${main-class}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" depends="dist">
+    <java jar="${dist.dir}/${ant.project.name}.jar" fork="true">
+      <jvmarg value="-javaagent:${lib.dir}/${cofoja}"/>
+    </java>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+</project>

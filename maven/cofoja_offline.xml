@@ -1,0 +1,20 @@
+<project>
+    <fileset id="cofoja.pre.class.list" dir="${output.dir}">
+        <include name="**/*.class"/>
+    </fileset>
+
+    <pathconvert property="cofoja.class.str" pathsep=" " refid="cofoja.pre.class.list" />
+
+    <target name="default">
+        <echo message="${compile_classpath}"/>
+    </target>
+
+    <target name="cofoja">
+        <java classname="com.google.java.contract.core.agent.PreMain" fork="true" classpath="${compile_classpath}">
+            <jvmarg value="-Dcom.google.java.contract.classpath=${toString:classpath}"/>
+            <jvmarg value="-Dcom.google.java.contract.sourcepath=${src.dir}"/>
+            <jvmarg value="-Dcom.google.java.contract.classoutput=${output.dir}"/>
+            <arg value="${cofoja.class.str}" />
+        </java>
+    </target>
+</project>
