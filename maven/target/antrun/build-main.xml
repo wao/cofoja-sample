@@ -2,8 +2,8 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <property name="compile_classpath" refid="maven.compile.classpath"/>
-  <property name="output.dir" value="/home/w19816/myprojects/android/cofomvn/cofoja/target/classes"/>
-  <property name="src.dir" value="/home/w19816/myprojects/android/cofomvn/cofoja/src/main/java"/>
-  <ant antfile="/home/w19816/myprojects/android/cofomvn/cofoja/cofoja_offline.xml" target="cofoja"/>
+  <property name="output.dir" value="/home/w19816/myprojects/android/cofoja-sample/maven/target/classes"/>
+  <property name="src.dir" value="/home/w19816/myprojects/android/cofoja-sample/maven/src/main/java"/>
+  <ant antfile="/home/w19816/myprojects/android/cofoja-sample/maven/cofoja_offline.xml" target="cofoja"/>
 </target>
 </project>

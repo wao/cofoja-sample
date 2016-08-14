@@ -1,12 +1,12 @@
 package info.thinkmore.cofomvn;
 
 import com.google.java.contract.Requires;
-import lombok.Getter;
+//import lombok.Getter;
 
 
 public class App{
 
-    @Getter int b = 4;
+    int b = 4;
 
     @Requires("a<3")
     public int s(int a){
